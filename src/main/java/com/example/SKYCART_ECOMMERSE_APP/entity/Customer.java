@@ -1,11 +1,9 @@
 package com.example.SKYCART_ECOMMERSE_APP.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.example.SKYCART_ECOMMERSE_APP.enums.Gender;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,23 +14,19 @@ import org.antlr.v4.runtime.misc.NotNull;
 public class Customer {
 
     @Id
-    int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @Column(nullable = false,unique = true)
-    String name;
-
-    @NotNull
-    String aderess;
+    private String name;
+    private String address;
 
     @Column(unique = true)
-    String email;
+    private String email;
 
-    @Column(length = 5)
-    int pincode;
+    private Integer pincode;
+    private Long mobno;
+    private Integer age;
 
-    @Column(length = 10)
-    int mobno;
-
-    @Column
-    int age;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 }

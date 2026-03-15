@@ -1,18 +1,56 @@
 package com.example.SKYCART_ECOMMERSE_APP.services;
 
+import com.example.SKYCART_ECOMMERSE_APP.entity.Customer;
+import com.example.SKYCART_ECOMMERSE_APP.enums.Gender;
+import com.example.SKYCART_ECOMMERSE_APP.exceptions.Customeralreadyexistexception;
+import com.example.SKYCART_ECOMMERSE_APP.exceptions.customernotfoundexception;
+import com.example.SKYCART_ECOMMERSE_APP.exceptions.gendernotfoundexception;
+import com.example.SKYCART_ECOMMERSE_APP.exceptions.idinvalidexception;
 import com.example.SKYCART_ECOMMERSE_APP.repository.CustomerRepository;
-import jdk.dynalink.beans.StaticClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.lang.module.ResolutionException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
 
     @Autowired
-    static CustomerRepository customerRepository;
+    CustomerRepository customerRepository;
 
-    public static String addcustomer(int id) {
-        return customerRepository.addcustomer(id);
+   public Customer getcustomerbyid(int id){
+        Optional<Customer>optionalCustomer = customerRepository.findById(id);
+
+        if(optionalCustomer.isEmpty()){
+            throw new idinvalidexception("this customer is invalid for this id"+id);
+        }
+        return optionalCustomer.get();
+   }
+
+    public Customer addcustomer(Customer customer) {
+        return customerRepository.save(customer);
     }
+
+    @GetMapping("/gender/{gender}")
+    public Customer getcustomerbygender(Gender gender) {
+        Optional<Customer> optionalCustomer = customerRepository.findByGender(gender);
+        if(optionalCustomer.isEmpty()){
+            throw new gendernotfoundexception("this type of gender not found"+gender);
+        }
+        return optionalCustomer.get();
+    }
+
+    public Customer getcustomerbyagegreaterthan(int age) {
+       Optional<Customer> optinalcustomer = customerRepository.findByAgeGreaterThan(age);
+       if(optinalcustomer.isEmpty()){
+           throw new customernotfoundexception("customers not found for this age"+ age);
+       }
+       return optinalcustomer.get();
+    }
+
+
 }
