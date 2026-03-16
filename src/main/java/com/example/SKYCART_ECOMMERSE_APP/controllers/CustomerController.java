@@ -16,14 +16,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/customer")
 @Slf4j
 public class CustomerController {
 
     @Autowired
     CustomerService customerService;
 
-    @PostMapping("/customer")
+    @PostMapping
     public ResponseEntity<?> addCustomer(@RequestBody Customer customer) {
         try {
             return new ResponseEntity<>(customerService.addcustomer(customer), HttpStatus.CREATED);
@@ -33,7 +33,7 @@ public class CustomerController {
         }
     }
 
-    @GetMapping("/customer2")
+    @GetMapping
     public ResponseEntity<?> getCustomerById(@RequestParam("id") int id) {
         try {
             return new ResponseEntity<>(customerService.getcustomerbyid(id), HttpStatus.OK);
@@ -46,7 +46,7 @@ public class CustomerController {
     //filter based on gender
     //ip- gender , op-List<Customerresponse>
 
-   @GetMapping("customer3")
+   @GetMapping("gender/{gender}")
     public ResponseEntity getcustomerbygender(@PathVariable Gender gender){
         try{
             return new ResponseEntity(customerService.getcustomerbygender(gender), HttpStatus.OK);
@@ -59,7 +59,7 @@ public class CustomerController {
     //getcustomerbyagegeretrthan
 
 
-    @GetMapping("customer4")
+    @GetMapping("/age")
     public ResponseEntity getcustomerbyagegreaterthan(@RequestParam("age")int age){
         try{
             return new ResponseEntity(customerService.getcustomerbyagegreaterthan(age), HttpStatus.OK);

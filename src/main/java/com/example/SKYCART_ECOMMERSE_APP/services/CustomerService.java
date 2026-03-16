@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.lang.module.ResolutionException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,12 +37,13 @@ public class CustomerService {
     }
 
     @GetMapping("/gender/{gender}")
-    public Customer getcustomerbygender(Gender gender) {
-        Optional<Customer> optionalCustomer = customerRepository.findByGender(gender);
-        if(optionalCustomer.isEmpty()){
-            throw new gendernotfoundexception("this type of gender not found"+gender);
-        }
-        return optionalCustomer.get();
+    public List<Customer> getcustomerbygender(Gender gender) {
+       List<Customer> customers = new ArrayList<>();
+
+       if(customers.isEmpty()){
+           throw new gendernotfoundexception("no customers found for this gender"+ gender);
+       }
+       return customers;
     }
 
     public Customer getcustomerbyagegreaterthan(int age) {

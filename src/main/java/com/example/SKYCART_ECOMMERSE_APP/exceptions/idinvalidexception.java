@@ -7,4 +7,7 @@ public class idinvalidexception extends RuntimeException {
         super(message);
     }
 
+    public String getmessage() {
+        return "id is invalid";
+    }
 }

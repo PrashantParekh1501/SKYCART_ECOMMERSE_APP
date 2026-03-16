@@ -10,7 +10,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Entity
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Customer {
 
     @Id
