@@ -11,7 +11,7 @@ public class AddressService {
     @Autowired
     AddressRepository addressRepository;
 
-    public static String addaddress(int id, Address address) {
-        return "add address to this customer successfully"+id;
+    public Address addaddress(int id, Address address) {
+        return addressRepository.save(address);
     }
 }

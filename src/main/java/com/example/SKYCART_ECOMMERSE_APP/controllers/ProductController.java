@@ -13,16 +13,20 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
 
     @Autowired
-    ProductService productService;
+   private ProductService productService;
 
-    @PostMapping
-    public ResponseEntity addproduct(@RequestParam("sellerid")int sellerid, @RequestBody Product product){
+    public ResponseEntity<?> addproduct(@RequestParam("Sellerid")int sellerid, @RequestBody Product product){
         try{
-            return new ResponseEntity(ProductService.addproduct(sellerid, product), HttpStatus.OK);
+            return new ResponseEntity<>(productService.addproduct( sellerid, product), HttpStatus.OK );
         }
         catch(sellernotfoundexception e){
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+
+
+
+
 
 }

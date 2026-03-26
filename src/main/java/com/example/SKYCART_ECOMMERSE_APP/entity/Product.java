@@ -31,5 +31,7 @@ public class Product {
     @Enumerated(value = EnumType.STRING)
     Category category;
 
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
     Seller seller;
 }

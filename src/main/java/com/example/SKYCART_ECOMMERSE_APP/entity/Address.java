@@ -12,10 +12,10 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
 
     @Column(length = 6)
-    int pincode;
+    Integer pincode;
 
     @Column(unique = true)
     String landmark;

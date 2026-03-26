@@ -13,5 +13,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     Optional<Customer> findByAgeGreaterThan(int age);
 
-    Optional<Customer> findByGender(Gender gender);
+    List<Customer> findByGender(Gender gender);
 }

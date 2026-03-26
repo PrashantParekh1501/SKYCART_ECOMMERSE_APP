@@ -21,10 +21,10 @@ public class AderessController {
    private AddressService addressService;
 
 
-    @PostMapping
-    public ResponseEntity addaddress(@RequestParam("id")int id, @RequestBody Address address){
+    @PostMapping("{id}")
+    public ResponseEntity addaddress(@PathVariable("id")int id, @RequestBody Address address){
         try{
-            return new ResponseEntity(AddressService.addaddress(id, address), HttpStatus.OK);
+            return new ResponseEntity(addressService.addaddress(id,address), HttpStatus.OK);
         }
         catch (idinvalidexception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);

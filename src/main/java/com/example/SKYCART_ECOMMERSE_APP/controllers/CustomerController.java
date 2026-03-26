@@ -58,7 +58,6 @@ public class CustomerController {
 
     //getcustomerbyagegeretrthan
 
-
     @GetMapping("/age")
     public ResponseEntity getcustomerbyagegreaterthan(@RequestParam("age")int age){
         try{

@@ -38,7 +38,7 @@ public class CustomerService {
 
     @GetMapping("/gender/{gender}")
     public List<Customer> getcustomerbygender(Gender gender) {
-       List<Customer> customers = new ArrayList<>();
+       List<Customer> customers = customerRepository.findByGender(gender);
 
        if(customers.isEmpty()){
            throw new gendernotfoundexception("no customers found for this gender"+ gender);

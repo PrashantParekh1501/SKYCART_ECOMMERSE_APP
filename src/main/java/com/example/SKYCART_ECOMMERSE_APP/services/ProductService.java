@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 public class ProductService {
 
     @Autowired
-    static ProductRepository productRepository;
+    private ProductRepository productRepository;
 
-    public static Product addproduct(int sellerid, Product product) {
-        return productRepository.addproduct(sellerid, product);
-    }
+   public Product addproduct(int sellerid, Product product){
+       product.setId(sellerid);
+       return productRepository.save(product);
+   }
 }
