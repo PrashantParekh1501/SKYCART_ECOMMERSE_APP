@@ -2,6 +2,7 @@ package com.example.SKYCART_ECOMMERSE_APP.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.AnyDiscriminatorImplicitValues;
 
@@ -10,11 +11,12 @@ import org.hibernate.annotations.AnyDiscriminatorImplicitValues;
 @Getter
 @Setter
 @Entity
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Seller {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
 
     @Column(nullable = false)
     String name;
@@ -26,5 +28,5 @@ public class Seller {
     String state;
 
     @Column(length = 15)
-    int gstno;
+    String gstno;
 }
