@@ -1,5 +1,7 @@
 package com.example.SKYCART_ECOMMERSE_APP.controllers;
 
+import com.example.SKYCART_ECOMMERSE_APP.dto.request.ProductRequest;
+import com.example.SKYCART_ECOMMERSE_APP.dto.response.ProductResponse;
 import com.example.SKYCART_ECOMMERSE_APP.entity.Product;
 import com.example.SKYCART_ECOMMERSE_APP.exceptions.productalreadyaddedexception;
 import com.example.SKYCART_ECOMMERSE_APP.exceptions.sellernotfoundexception;
@@ -17,9 +19,10 @@ public class ProductController {
    private ProductService productService;
 
     @PostMapping
-    public ResponseEntity<?> addproduct(@RequestBody Product product){
+    public ResponseEntity<?> addproduct(@RequestBody ProductRequest productRequest){
         try {
-            return new ResponseEntity<>(productService.addproduct(product), HttpStatus.CREATED);
+            ProductResponse Response = productService.addproduct(productRequest);
+            return new ResponseEntity<>( Response, HttpStatus.CREATED);
         }
         catch(productalreadyaddedexception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -28,12 +31,12 @@ public class ProductController {
 
     //getproduct
     @GetMapping("/{sellerid}/{productid}")
-    public ResponseEntity getproduct(@PathVariable  int sellerid,@PathVariable int productid){
+    public ResponseEntity<?> getproduct(@PathVariable  int sellerid,@PathVariable int productid){
         try{
-            return new ResponseEntity(ProductService.getproduct(sellerid, productid), HttpStatus.OK);
+            return new ResponseEntity<>(ProductService.getproduct(sellerid, productid), HttpStatus.OK);
         }
         catch(sellernotfoundexception e){
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

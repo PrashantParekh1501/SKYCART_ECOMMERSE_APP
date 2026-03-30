@@ -8,11 +8,15 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
+@Builder
 public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
+
+    @Column
+    String houseno;
 
     @Column(length = 6)
     Integer pincode;
@@ -25,4 +29,8 @@ public class Address {
 
     @Column
     String state;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
+    Customer customer;
 }

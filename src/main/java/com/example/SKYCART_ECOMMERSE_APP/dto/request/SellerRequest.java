@@ -1,25 +1,20 @@
 package com.example.SKYCART_ECOMMERSE_APP.dto.request;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AddressRequest {
+public class SellerRequest {
+     String name;
 
-    @Column(length = 6)
-   int pincode;
+     String city;
 
-    @Column(nullable = false)
-   String landmark;
+     String state;
 
-    @Column
-   String city;
-
-    @Column
-   String state;
+     String gstno;
 }

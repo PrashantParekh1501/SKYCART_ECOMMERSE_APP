@@ -1,5 +1,7 @@
 package com.example.SKYCART_ECOMMERSE_APP.repository;
 
+import com.example.SKYCART_ECOMMERSE_APP.dto.request.ProductRequest;
+import com.example.SKYCART_ECOMMERSE_APP.dto.response.ProductResponse;
 import com.example.SKYCART_ECOMMERSE_APP.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

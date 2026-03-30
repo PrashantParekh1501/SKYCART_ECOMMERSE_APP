@@ -1,7 +1,10 @@
 package com.example.SKYCART_ECOMMERSE_APP.controllers;
 
+import com.example.SKYCART_ECOMMERSE_APP.dto.request.SellerRequest;
+import com.example.SKYCART_ECOMMERSE_APP.dto.response.SellerResponse;
 import com.example.SKYCART_ECOMMERSE_APP.entity.Seller;
 import com.example.SKYCART_ECOMMERSE_APP.exceptions.selleralreadyexistexception;
+import com.example.SKYCART_ECOMMERSE_APP.exceptions.sellerinvalidexception;
 import com.example.SKYCART_ECOMMERSE_APP.services.SellerService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,12 +30,13 @@ public class SellerController {
     private SellerService sellerService;
 
     @PostMapping
-    public ResponseEntity<?> addseller(@RequestBody Seller seller){
-        try{
-          return new ResponseEntity<>(sellerService.addseller(seller), HttpStatus.OK);
-        }
-        catch(selleralreadyexistexception e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity addseller(@RequestBody SellerRequest sellerRequest){
+       try{
+           SellerResponse response = sellerService.addSeller(sellerRequest);
+           return new ResponseEntity(response, HttpStatus.OK);
+       }
+       catch (sellerinvalidexception e){
+           return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+       }
     }
 }

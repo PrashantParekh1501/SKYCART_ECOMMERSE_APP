@@ -1,5 +1,7 @@
 package com.example.SKYCART_ECOMMERSE_APP.services;
 
+import com.example.SKYCART_ECOMMERSE_APP.dto.request.CustomerRequest;
+import com.example.SKYCART_ECOMMERSE_APP.dto.response.CustomerResponse;
 import com.example.SKYCART_ECOMMERSE_APP.entity.Customer;
 import com.example.SKYCART_ECOMMERSE_APP.enums.Gender;
 import com.example.SKYCART_ECOMMERSE_APP.exceptions.Customeralreadyexistexception;
@@ -7,6 +9,7 @@ import com.example.SKYCART_ECOMMERSE_APP.exceptions.customernotfoundexception;
 import com.example.SKYCART_ECOMMERSE_APP.exceptions.gendernotfoundexception;
 import com.example.SKYCART_ECOMMERSE_APP.exceptions.idinvalidexception;
 import com.example.SKYCART_ECOMMERSE_APP.repository.CustomerRepository;
+import com.example.SKYCART_ECOMMERSE_APP.transformer.CustomerTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -55,4 +58,14 @@ public class CustomerService {
     }
 
 
+    public CustomerResponse addcustomer(CustomerRequest customerRequest) {
+        // Step 1 - Request DTO to Entity
+        Customer customer = CustomerTransformer.customerrequesttocustomer(customerRequest);
+
+        // Step 2 - Save entity
+        Customer savedCustomer = customerRepository.save(customer);
+
+        // Step 3 - Convert saved entity to Response
+        return CustomerTransformer.customertocustomerresponse(savedCustomer);
+    }
 }

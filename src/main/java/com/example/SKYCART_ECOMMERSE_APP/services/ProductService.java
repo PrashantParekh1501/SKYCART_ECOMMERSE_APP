@@ -1,5 +1,7 @@
 package com.example.SKYCART_ECOMMERSE_APP.services;
 
+import com.example.SKYCART_ECOMMERSE_APP.dto.request.ProductRequest;
+import com.example.SKYCART_ECOMMERSE_APP.dto.response.ProductResponse;
 import com.example.SKYCART_ECOMMERSE_APP.entity.Product;
 import com.example.SKYCART_ECOMMERSE_APP.entity.Seller;
 import com.example.SKYCART_ECOMMERSE_APP.exceptions.Productnotfoundexception;
@@ -34,27 +36,31 @@ public class ProductService {
         return optionalProduct.get();
     }
 
-    @PostMapping
-    public ResponseEntity<?> addproduct(@RequestBody Product product) {
 
-        Integer sellerId = product.getSeller().getId();
-
-        if(productRepository.existsById(sellerId)){
-            throw new RuntimeException("Product already exists");
+    public ProductResponse addproduct(ProductRequest productRequest) {
+        //validate
+        if(productRequest == null){
+            throw  new IllegalArgumentException("productrequest can not be null");
         }
 
+        //dto to entity mapping
+        Product product = new Product();
+        product.setName(product.getName());
+        product.setCategory(product.getCategory());
+        product.setBrandname(product.getBrandname());
+        product.setPrice(product.getPrice());
+        product.setId(product.getId());
 
-        if(productRepository.existsByNameAndSellerId(product.getName(), sellerId)){
-            throw new RuntimeException("Product already exists for this seller");
-        }
+        //save the entity
+        Product savedproduct = productRepository.save(product);
 
-        Seller seller = sellerRepository.findById(sellerId)
-                .orElseThrow(() -> new RuntimeException("Seller not found"));
+        //convert entity to response
+        ProductResponse response = new ProductResponse();
+        response.setCategory(response.getCategory());
+        response.setName(response.getName());
+        response.setPrice(response.getPrice());
+        response.setSeller(response.getSeller());
 
-        product.setSeller(seller);
-
-        Product saved = productRepository.save(product);
-
-        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+        return response;
     }
 }

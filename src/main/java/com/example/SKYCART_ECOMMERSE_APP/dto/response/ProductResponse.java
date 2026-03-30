@@ -1,6 +1,6 @@
 package com.example.SKYCART_ECOMMERSE_APP.dto.response;
 
-import jakarta.persistence.Column;
+import com.example.SKYCART_ECOMMERSE_APP.enums.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,16 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class AddressReponse {
-
-    String houseno;
-
-    Integer pincode;
-
-    String landmark;
-
-    String city;
-
-    String state;
-
+public class ProductResponse {
+    String name;
+    int price;
+    Category category;
+    SellerResponse seller;
 }

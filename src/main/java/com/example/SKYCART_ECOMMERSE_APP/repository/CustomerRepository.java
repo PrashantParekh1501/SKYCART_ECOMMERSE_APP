@@ -1,5 +1,7 @@
 package com.example.SKYCART_ECOMMERSE_APP.repository;
 
+import com.example.SKYCART_ECOMMERSE_APP.dto.request.CustomerRequest;
+import com.example.SKYCART_ECOMMERSE_APP.dto.response.CustomerResponse;
 import com.example.SKYCART_ECOMMERSE_APP.entity.Customer;
 import com.example.SKYCART_ECOMMERSE_APP.enums.Gender;
 import org.springframework.data.jpa.repository.JpaRepository;

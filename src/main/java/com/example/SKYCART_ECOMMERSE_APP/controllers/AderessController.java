@@ -1,13 +1,8 @@
 package com.example.SKYCART_ECOMMERSE_APP.controllers;
 
-import com.example.SKYCART_ECOMMERSE_APP.entity.Address;
-import com.example.SKYCART_ECOMMERSE_APP.exceptions.idinvalidexception;
+import com.example.SKYCART_ECOMMERSE_APP.dto.request.AddressRequest;
+import com.example.SKYCART_ECOMMERSE_APP.dto.response.AddressReponse;
 import com.example.SKYCART_ECOMMERSE_APP.services.AddressService;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +17,17 @@ public class AderessController {
 
 
     @PostMapping("{id}")
-    public ResponseEntity addaddress(@PathVariable("id")int id, @RequestBody Address address){
+    public ResponseEntity addaddress(@PathVariable("customerid")int customerid, @RequestBody AddressRequest addressRequest){
         try{
-            return new ResponseEntity(addressService.addaddress(id,address), HttpStatus.OK);
+            AddressReponse response = addressService.addaddress(customerid, addressRequest);
+            return new ResponseEntity<>(response,HttpStatus.CREATED);
         }
-        catch (idinvalidexception e){
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+
 
 
 

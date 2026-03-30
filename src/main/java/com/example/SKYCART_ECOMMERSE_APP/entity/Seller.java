@@ -12,6 +12,7 @@ import org.hibernate.annotations.AnyDiscriminatorImplicitValues;
 @Setter
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 public class Seller {
 
     @Id
